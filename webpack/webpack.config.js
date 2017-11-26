@@ -1,4 +1,7 @@
 const path = require('path')
+
+const { webpackDevServerPort } = require('../config.json')
+
 const rules = require('./rules')
 const plugins = require('./plugins')
 
@@ -8,7 +11,7 @@ const distDir = path.join(rootDir, 'docs')
 module.exports = env => ({
   target: 'web',
   entry: {
-    app: './src/index.tsx',
+    app: './src/index.js',
   },
   output: {
     path: distDir,
@@ -17,19 +20,8 @@ module.exports = env => ({
   },
   resolve: {
     extensions: [
-      '.ts',
-      '.tsx',
       '.js',
-      '.jsx',
     ],
-    modules: [
-      path.resolve(rootDir, 'src'),
-      'node_modules',
-    ],
-    // alias: env === 'dev' ? undefined : {
-    //   'react': path.join(rootDir, 'node_modules/react/dist/react.min.js'),
-    //   'react-dom': path.join(rootDir, 'node_modules/react-dom/dist/react-dom.min.js'),
-    // },
   },
   devtool: env === 'dev' ? 'source-map' : undefined,
   module: {
@@ -38,13 +30,13 @@ module.exports = env => ({
   plugins: plugins(env),
   devServer: {
     contentBase: distDir,
-    port: 9080,
+    port: webpackDevServerPort,
     compress: env !== 'dev',
     historyApiFallback: {
       rewrites: [
         {
           from: /./,
-          to: '/404.html',
+          to: '/index.html',
         },
       ],
     },

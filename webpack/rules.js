@@ -1,28 +1,34 @@
-// const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-// const styledComponentsTransformer = createStyledComponentsTransformer()
-
-const { createLodashTransformer } = require('typescript-plugin-lodash')
-
-const tsOptions = env => env === 'dev' ? {
-  // getCustomTransformers: () => ({ before: [styledComponentsTransformer] }),
-} : {
-  getCustomTransformers: () => ({ before: [createLodashTransformer()] }),
-  ignoreDiagnostics: [2339, 2345, 2459],
+const getCssLoader = global => global ? 'css-loader' : {
+  loader: 'css-loader',
+  options: {
+    modules: true,
+    importLoaders: 1,
+    localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
+  },
 }
+
+const getCssRule = (env, global) => env === 'dev' ? [
+  'style-loader',
+  getCssLoader(global),
+  'postcss-loader',
+] : ExtractTextPlugin.extract({
+  fallback: 'style-loader',
+  use: [
+    getCssLoader(global),
+    'postcss-loader',
+  ],
+})
 
 module.exports = env => [
   {
-    test: /worker\.[jt]s/,
-    loader: 'worker-loader',
-  },
-  {
-    test: /\.tsx?$/,
-    use: {
-      loader: 'awesome-typescript-loader',
-      options: tsOptions(env),
-    },
+    test: /\.js$/,
+    loader: 'babel-loader',
     exclude: /node_modules/,
+    options: {
+      cacheDirectory: true,
+    },
   },
   {
     test: /\.css$/,
