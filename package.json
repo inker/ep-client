@@ -13,7 +13,10 @@
     "react-import": "^1.0.9",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
     "redux": "^3.7.2",
+    "redux-persist": "^5.4.0",
+    "redux-saga": "^0.16.0",
     "styled-components": "^2.2.3"
   },
   "devDependencies": {
@@ -27,6 +30,8 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
     "forever": "^0.15.3",
