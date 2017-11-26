@@ -19,7 +19,8 @@ app.use(require('compression')()) // should be first
 app.use(bodyParser.urlencoded({ extended: false })) // to support URL-encoded bodies
 app.use(bodyParser.json()) // to support JSON-encoded bodies
 
-app.use('/', require('./routes'))
+app.use('/auth', require('./routes/auth'))
+app.use('/phone', require('./routes/phone'))
 
 app.use(express.static(`${__dirname}/client`))
 
