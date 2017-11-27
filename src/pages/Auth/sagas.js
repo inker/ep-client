@@ -1,8 +1,9 @@
 import { take, call, put, race, select, takeLatest } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
 import { get } from 'lodash'
 
 import { REHYDRATE } from 'redux-persist'
+
+import history from '../../history'
 import authApi from '../../api/auth'
 
 import {
@@ -10,7 +11,7 @@ import {
   EXPIRE_AUTH_DATA,
   VERIFY_REQUEST,
 
-  setAuthData,
+  actions,
 } from './ducks'
 
 import {
@@ -22,8 +23,8 @@ export function* getAccountAndSetAuthData(token) {
   // const { response } = yield call(authApi.login, {
   //   auth_token: token,
   // })
-  yield put(setAuthData(token, null))
-  yield put(push('/dashboard'))
+  yield put(actions.setAuthData(token, null))
+  history.push('/dashboard')
 }
 
 function* authorize(login, password) {
@@ -34,7 +35,7 @@ function* authorize(login, password) {
 }
 
 function* goToMain() {
-  yield put(push('/'))
+  yield history.push('/')
 }
 
 // ========== FLOWS ==========
@@ -64,9 +65,9 @@ function* loginFlow({ payload }) {
   if (winner.logout) {
     console.log(winner.logout)
     yield call(goToMain)
-  } else if (winner.auth) {
+  } else if (winner.login) {
     console.log(winner.login)
-    const { data } = winner.auth
+    const { data } = winner.login
     console.log('auth', data)
     if (data.token) {
       yield call(getAccountAndSetAuthData, data.token)

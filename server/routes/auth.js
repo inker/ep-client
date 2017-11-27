@@ -22,8 +22,8 @@ router.post('/login', async (req, res) => {
     })
     return
   }
-  const compare = await bcrypt.compare(auth.password, HASH)
-  if (!compare) {
+  const passwordIsCorrect = await bcrypt.compare(auth.password, HASH)
+  if (!passwordIsCorrect) {
     res.status(200).send({
       error: 'INCORRECT_PASSWORD',
     })

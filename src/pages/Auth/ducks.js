@@ -9,7 +9,7 @@ export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
 export const VERIFY_REQUEST = 'easypay/Auth/VERIFY_REQUEST'
 export const REQUEST_ERROR = 'easypay/Auth/REQUEST_ERROR'
 
-export function requestError(type, message, cause, backtrace) {
+function requestError(type, message, cause, backtrace) {
   return {
     type: REQUEST_ERROR,
     payload: {
@@ -21,7 +21,7 @@ export function requestError(type, message, cause, backtrace) {
   }
 }
 
-export function requestAuthData(identifier, password, rememberMe) {
+function loginRequest(identifier, password, rememberMe) {
   return {
     type: LOGIN_REQUEST,
     payload: {
@@ -32,7 +32,7 @@ export function requestAuthData(identifier, password, rememberMe) {
   }
 }
 
-export function verifyRequest(secretCode) {
+function verifyRequest(secretCode) {
   return {
     type: VERIFY_REQUEST,
     payload: {
@@ -41,7 +41,7 @@ export function verifyRequest(secretCode) {
   }
 }
 
-export function setAuthData(token, accountInfo) {
+function setAuthData(token, accountInfo) {
   return {
     type: SET_AUTH_DATA,
     payload: {
@@ -51,7 +51,7 @@ export function setAuthData(token, accountInfo) {
   }
 }
 
-export function expireAuthData() {
+function expireAuthData() {
   return {
     type: EXPIRE_AUTH_DATA,
     payload: {
@@ -60,13 +60,22 @@ export function expireAuthData() {
   }
 }
 
-export function verifyAuthToken(value) {
+function verifyAuthToken(value) {
   return {
     type: VERIFY_AUTH_TOKEN,
     payload: {
       value,
     },
   }
+}
+
+export const actions = {
+  requestError,
+  loginRequest,
+  verifyRequest,
+  setAuthData,
+  expireAuthData,
+  verifyAuthToken,
 }
 
 

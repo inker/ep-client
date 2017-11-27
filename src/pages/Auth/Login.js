@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { createStructuredSelector } from 'reselect'
 
-import {
-  requestAuthData,
-} from './ducks'
+import { actions } from './ducks'
 
 class Login extends PureComponent {
   state = {
@@ -36,12 +35,11 @@ class Login extends PureComponent {
     e.preventDefault()
     const { state, props } = this
     const { identifier, password } = state
-    console.log(this.state)
     this.setState({
       ...state,
       isSubmitted: true,
     })
-    props.loginRequest(identifier, password)
+    props.actions.loginRequest(identifier, password)
   }
 
   render() {
@@ -70,13 +68,7 @@ class Login extends PureComponent {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loginRequest: (identifier, password) =>
-    dispatch(requestAuthData(identifier, password)),
-  // changeRoute: (url) => dispatch(push(url)),
-  // // verifyToken: (authToken) => dispatch(verifyToken(authToken)),
-  // expireAuthData: () => dispatch(expireAuthData()),
-  // toggleAccountDialog: (value) => dispatch(toggleAccountDialog(value)),
-  // requestAuthData: (email, password, rememberMe) => dispatch(requestAuthData(email, password, rememberMe)),
+  actions: bindActionCreators(actions, dispatch),
 })
 
 const mapStateToProps = createStructuredSelector({
