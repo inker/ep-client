@@ -8,6 +8,7 @@
     "compression": "^1.7.1",
     "express": "^4.16.2",
     "history": "^4.7.2",
+    "localforage": "^1.5.3",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "pg": "^7.4.0",
