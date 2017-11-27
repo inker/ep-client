@@ -2,9 +2,10 @@ import { REHYDRATE } from 'redux-persist'
 import { get } from 'lodash'
 
 export const LOGIN_REQUEST = 'easypay/Auth/LOGIN_REQUEST'
+export const SET_AUTH_TOKEN = 'easypay/Auth/SET_AUTH_TOKEN'
 
 export const VERIFY_AUTH_TOKEN = 'easypay/Auth/VERIFY_AUTH_TOKEN'
-export const SET_AUTH_DATA = 'easypay/Auth/SET_AUTH_DATA'
+
 export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
 export const VERIFY_REQUEST = 'easypay/Auth/VERIFY_REQUEST'
 export const REQUEST_ERROR = 'easypay/Auth/REQUEST_ERROR'
@@ -43,7 +44,7 @@ function verifyRequest(secretCode) {
 
 function setAuthData(token, accountInfo) {
   return {
-    type: SET_AUTH_DATA,
+    type: SET_AUTH_TOKEN,
     payload: {
       token,
       accountInfo,
@@ -82,59 +83,43 @@ export const actions = {
 /* REDUCER */
 
 function onRehydrate(state, payload) {
-  const auth = get(payload, 'auth.auth')
-  return auth ? {
+  const data = get(payload, 'auth.data')
+  return data ? {
     ...state,
-    auth,
+    data,
     // specialKey: processSpecial(incoming.specialKey),
   } : state
 }
 
 const initialState = {
-  auth: {
+  data: {
     token: null,
   },
 }
 
 export default function (state = initialState, { type, payload = {} }) {
-  const { identifier, token } = state.auth
+  const { identifier, token } = state.data
   switch (type) {
     case REHYDRATE:
       return onRehydrate(state, payload)
 
-    case SET_AUTH_DATA:
-      return {
-        ...state,
-        auth: {
-          // email: payload.accountInfo.email,
-          token: payload.token,
-        },
-      }
-
     case LOGIN_REQUEST:
       return {
         ...state,
-        auth: {
-          identifier,
+        data: {
           ...payload,
         },
         isLoading: true,
-        registerSuccess: false,
-        passwordResetSuccess: false,
-        passwordUpdateSuccess: false,
-        addPaymentCardSuccess: false,
       }
 
-    case VERIFY_REQUEST: {
+    case SET_AUTH_TOKEN:
       return {
         ...state,
-        auth: {
-          twoFactorSession: state.auth.twoFactorSession,
-          secretCode: payload.secretCode,
+        data: {
+          token: payload.token,
         },
-        isLoading: true,
+        isLoading: false,
       }
-    }
 
     default:
       return state

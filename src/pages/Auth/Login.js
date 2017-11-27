@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 
 import { createStructuredSelector } from 'reselect'
 
+import Form from '../../components/Form'
+
 import { actions } from './ducks'
+import { selectAuth } from './selectors'
 
 class Login extends PureComponent {
   state = {
@@ -36,9 +39,9 @@ class Login extends PureComponent {
     const { state, props } = this
     const { identifier, password } = state
     this.setState({
-      ...state,
       isSubmitted: true,
     })
+    debugger
     props.actions.loginRequest(identifier, password)
   }
 
@@ -46,7 +49,7 @@ class Login extends PureComponent {
     const { state } = this
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit}>
           <input
             type="text"
             placeholder="Login"
@@ -61,7 +64,7 @@ class Login extends PureComponent {
             type="submit"
             value="Go"
           />
-        </form>
+        </Form>
       </div>
     )
   }
@@ -72,6 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = createStructuredSelector({
+  auth: selectAuth(),
   // user: selectUser(),
   // rememberMe: selectRememberMe(),
   // isAccountDialogOpen: selectAccountDialogState(),
