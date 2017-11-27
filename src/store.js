@@ -8,13 +8,17 @@ import {
 // import { routerMiddleware, routerReducer } from 'react-router-redux'
 // import { autoRehydrate } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
+import { routerMiddleware } from 'react-router-redux'
 
 import globalReducer from './reducer'
 
 import authReducer from './pages/Auth/ducks'
 import authSagas from './pages/Auth/sagas'
 
+import history from './history'
+
 const sagaMiddleware = createSagaMiddleware()
+const routerMW = routerMiddleware(history)
 
 const reducer = combineReducers({
   global: globalReducer,
@@ -26,6 +30,7 @@ const initialState = {}
 
 const middleware = [
   // routerMiddleware(browserHistory),
+  routerMW,
   sagaMiddleware,
 ]
 

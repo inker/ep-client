@@ -11,7 +11,10 @@ const persistor = persistStore(store)
 
 ReactDom.render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    <PersistGate
+      persistor={persistor}
+      loading={<div>fuck</div>}
+    >
       <Routes />
     </PersistGate>
   </Provider>,
