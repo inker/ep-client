@@ -1,5 +1,5 @@
 const {
-  DefinePlugin,  
+  DefinePlugin,
   optimize: {
     CommonsChunkPlugin,
     AggressiveMergingPlugin,
@@ -9,7 +9,6 @@ const {
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = (env) => [
   new DefinePlugin({
@@ -33,8 +32,6 @@ module.exports = (env) => [
       collapseWhitespace: true,
     },
   }),
-
-  new ExtractTextPlugin('styles.[contenthash].css'),
 
   env !== 'dev' && new UglifyJsPlugin({
     uglifyOptions: {
