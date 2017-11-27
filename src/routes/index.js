@@ -9,20 +9,27 @@ import {
 
 import { ConnectedRouter as Router } from 'react-router-redux'
 
-import LoginPage from './pages/Auth/Login'
+import LoginPage from '../pages/Auth/Login'
+import TopPanel from '../pages/Auth/TopPanel'
+import PhonePage from '../pages/Phone'
 
-import history from './history'
+import history from '../history'
+
 
 export default class Routes extends PureComponent {
   render() {
     return (
       <Router history={history}>
         <div>
-          <Link to="/login">Login</Link>
+          <TopPanel />
           <Switch>
             <Route
               path="/login"
               component={LoginPage}
+            />
+            <Route
+              path="/phone"
+              component={PhonePage}
             />
           </Switch>
         </div>

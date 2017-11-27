@@ -8,7 +8,7 @@ export default (methods) => {
   const obj = {}
   for (const key of Object.keys(methods)) {
     const { endpoint } = methods[key]
-    obj[key] = (auth, data) => request(`${url}/${endpoint}/${key}`, {
+    obj[key] = (auth, data) => request(`${url}/${endpoint}`, {
       auth,
       data,
     })

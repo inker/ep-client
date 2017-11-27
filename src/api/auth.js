@@ -2,7 +2,11 @@ import apify from '../utils/apify'
 
 const methods = {
   login: {
-    endpoint: 'auth',
+    endpoint: 'auth/login',
+    required: ['data'],
+  },
+  logout: {
+    endpoint: 'auth/logout',
     required: ['data'],
   },
   verify: {

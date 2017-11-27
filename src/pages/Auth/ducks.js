@@ -4,6 +4,8 @@ import { get } from 'lodash'
 export const LOGIN_REQUEST = 'easypay/Auth/LOGIN_REQUEST'
 export const SET_AUTH_TOKEN = 'easypay/Auth/SET_AUTH_TOKEN'
 
+export const LOGOUT_REQUEST = 'easypay/Auth/LOGOUT_REQUEST'
+
 export const VERIFY_AUTH_TOKEN = 'easypay/Auth/VERIFY_AUTH_TOKEN'
 
 export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
@@ -22,14 +24,20 @@ function requestError(type, message, cause, backtrace) {
   }
 }
 
-function loginRequest(identifier, password, rememberMe) {
+function loginRequest(login, password, rememberMe) {
   return {
     type: LOGIN_REQUEST,
     payload: {
-      identifier,
+      login,
       password,
       rememberMe,
     },
+  }
+}
+
+function logoutRequest() {
+  return {
+    type: LOGOUT_REQUEST,
   }
 }
 
@@ -73,6 +81,7 @@ function verifyAuthToken(value) {
 export const actions = {
   requestError,
   loginRequest,
+  logoutRequest,
   verifyRequest,
   setAuthData,
   expireAuthData,
@@ -98,7 +107,7 @@ const initialState = {
 }
 
 export default function (state = initialState, { type, payload = {} }) {
-  const { identifier, token } = state.data
+  const { login, token } = state.data
   switch (type) {
     case REHYDRATE:
       return onRehydrate(state, payload)
@@ -116,6 +125,7 @@ export default function (state = initialState, { type, payload = {} }) {
       return {
         ...state,
         data: {
+          login,
           token: payload.token,
         },
         isLoading: false,

@@ -11,7 +11,7 @@ import { selectAuth } from './selectors'
 
 class Login extends PureComponent {
   state = {
-    identifier: '',
+    login: '',
     password: '',
     isSubmitted: false,
   }
@@ -21,7 +21,7 @@ class Login extends PureComponent {
     console.log(value)
     this.setState({
       ...this.state,
-      identifier: value,
+      login: value,
     })
   }
 
@@ -37,12 +37,11 @@ class Login extends PureComponent {
   onSubmit = (e) => {
     e.preventDefault()
     const { state, props } = this
-    const { identifier, password } = state
+    const { login, password } = state
     this.setState({
       isSubmitted: true,
     })
-    debugger
-    props.actions.loginRequest(identifier, password)
+    props.actions.loginRequest(login, password)
   }
 
   render() {

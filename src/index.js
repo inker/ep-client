@@ -13,7 +13,7 @@ ReactDom.render(
   <Provider store={store}>
     <PersistGate
       persistor={persistor}
-      loading={<div>fuck</div>}
+      loading={<div>loading...</div>}
     >
       <Routes />
     </PersistGate>

@@ -12,6 +12,7 @@ import {
   VERIFY_REQUEST,
 
   actions,
+  LOGOUT_REQUEST,
 } from './ducks'
 
 import {
@@ -24,7 +25,7 @@ export function* getAccountAndSetAuthData(token) {
   //   auth_token: token,
   // })
   yield put(actions.setAuthData(token, null))
-  history.push('/dashboard')
+  history.push('/phone')
 }
 
 function* authorize(login, password) {
@@ -40,27 +41,19 @@ function* goToMain() {
 
 // ========== FLOWS ==========
 
-function* verifyTokenFlow({ payload }) {
+function verifyTokenFlow({ payload }) {
   console.log('verifying token', payload)
-  // if (NO_TOKEN_CONFIRM_URI_REGEX.test(location.pathname)) {
-  //   continue // eslint-disable-line no-continue
-  // }
-  const token = get(payload, 'auth.auth.token')
-  if (token) {
-    // yield race({
-    //   account: call(getAccountAndSetAuthData, token),
-    //   logout: take(EXPIRE_AUTH_DATA),
-    // })
-  } else if (!location.pathname.includes('/auth')) {
-    yield call(goToMain)
+  const token = get(payload, 'auth.data.token')
+  if (!token) {
+    history.push('/login')
   }
 }
 
 function* loginFlow({ payload }) {
-  const { identifier, password } = payload
+  const { login, password } = payload
   const winner = yield race({
-    login: call(authorize, identifier, password),
-    logout: take(EXPIRE_AUTH_DATA),
+    login: call(authorize, login, password),
+    logout: take(LOGOUT_REQUEST),
   })
   if (winner.logout) {
     console.log(winner.logout)
@@ -76,13 +69,15 @@ function* loginFlow({ payload }) {
 }
 
 function* logoutFlow() {
-  yield call(goToMain)
+  const { data } = yield select(selectAuth())
+  const logout = yield call(authApi.logout, data)
+  
 }
 
 export default function* authSaga() {
   yield [
     takeLatest(REHYDRATE, verifyTokenFlow),
     takeLatest(LOGIN_REQUEST, loginFlow),
-    takeLatest(EXPIRE_AUTH_DATA, logoutFlow),
+    takeLatest(LOGOUT_REQUEST, logoutFlow),
   ]
 }
