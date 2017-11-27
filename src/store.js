@@ -8,7 +8,7 @@ import {
 // import { routerMiddleware, routerReducer } from 'react-router-redux'
 import { persistReducer } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
-import { routerMiddleware } from 'react-router-redux'
+import { routerMiddleware, routerReducer } from 'react-router-redux'
 import localForage from 'localforage'
 
 import globalReducer from './reducer'
@@ -22,6 +22,7 @@ const sagaMiddleware = createSagaMiddleware()
 const routerMW = routerMiddleware(history)
 
 const combinedReducers = combineReducers({
+  router: routerReducer,
   global: globalReducer,
   auth: authReducer,
   // other reducers
@@ -38,7 +39,7 @@ const initialState = {}
 
 const middleware = [
   // routerMiddleware(browserHistory),
-  // routerMW,
+  routerMW,
   sagaMiddleware,
 ]
 
