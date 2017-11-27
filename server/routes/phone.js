@@ -2,15 +2,15 @@ const express = require('express')
 
 const router = express.Router()
 
-router.get('/add', (req, res) => {
+router.post('/add', (req, res) => {
   const data = req.body
 })
 
-router.get('/remove', (req, res) => {
+router.post('/remove', (req, res) => {
   const data = req.body
 })
 
-router.get('/check', (req, res) => {
+router.post('/check', (req, res) => {
   const data = req.body
 })
 

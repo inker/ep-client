@@ -4,6 +4,7 @@ import {
   Route,
   Redirect,
   Switch,
+  Link,
 } from 'react-router-dom'
 
 import { ConnectedRouter as Router } from 'react-router-redux'
@@ -16,12 +17,15 @@ export default class Routes extends PureComponent {
   render() {
     return (
       <Router history={history}>
-        <Switch>
-          <Route
-            path="/login"
-            component={LoginPage}
-          />
-        </Switch>
+        <div>
+          <Link to="/login">Login</Link>
+          <Switch>
+            <Route
+              path="/login"
+              component={LoginPage}
+            />
+          </Switch>
+        </div>
       </Router>
     )
   }

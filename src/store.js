@@ -21,28 +21,29 @@ import history from './history'
 const sagaMiddleware = createSagaMiddleware()
 const routerMW = routerMiddleware(history)
 
+const combinedReducers = combineReducers({
+  global: globalReducer,
+  auth: authReducer,
+  // other reducers
+})
+
 const persistReducerConfig = {
-  key: 'auth',
+  key: 'someKey',
   storage: localForage,
 }
 
-const reducer = combineReducers({
-  global: globalReducer,
-  auth: persistReducer(persistReducerConfig, authReducer),
-  // other reducers
-})
+const reducer = persistReducer(persistReducerConfig, combinedReducers)
 
 const initialState = {}
 
 const middleware = [
   // routerMiddleware(browserHistory),
-  routerMW,
+  // routerMW,
   sagaMiddleware,
 ]
 
 const enhancers = [
   applyMiddleware(...middleware),
-  // autoRehydrate(),
   // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 ]
