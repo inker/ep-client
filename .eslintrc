@@ -5,7 +5,6 @@
   },
   "rules":{
     "arrow-parens": 0,
-    "indent": ["error", 2],
     "no-confusing-arrow": 0,
     "no-nested-ternary": 0,
     "no-tabs": 0,
@@ -28,6 +27,10 @@
       "imports": "always-multiline",
       "exports": "always-multiline",
       "functions": "always-multiline"
+    }],
+    "react/jsx-filename-extension": false,
+    "react/prefer-stateless-function": [true, {
+      "ignorePureComponents": true
     }]
   },
   "globals": {

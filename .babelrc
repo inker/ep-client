@@ -3,15 +3,19 @@
     [
       "env",
       {
+        "modules": false,
         "useBuiltIns": "entry",
         "targets": {
           "browsers": [
-            "last 2 versions"
+            "> 5%"
           ]
         }
       }
     ],
     "react",
     "stage-2"
+  ],
+  "plugins": [
+    "lodash"
   ]
 }

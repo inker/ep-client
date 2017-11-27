@@ -5,9 +5,9 @@ import { createStructuredSelector } from 'reselect'
 
 import {
   requestAuthData,
-} from '../actions'
+} from './ducks'
 
-class Auth extends PureComponent {
+class Login extends PureComponent {
   state = {
     identifier: '',
     password: '',
@@ -144,4 +144,4 @@ const mapStateToProps = createStructuredSelector({
   // isAccountDialogOpen: selectAccountDialogState(),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

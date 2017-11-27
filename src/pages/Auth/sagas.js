@@ -2,8 +2,8 @@ import { take, call, put, race, select, takeLatest } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import { get } from 'lodash'
 
-import { REHYDRATE } from 'redux-persist/constants'
-import { authApi } from '../../api/auth'
+import { REHYDRATE } from 'redux-persist'
+import authApi from '../../api/auth'
 
 import {
   LOGIN_REQUEST,
@@ -11,7 +11,6 @@ import {
   VERIFY_REQUEST,
 
   setAuthData,
-  setTwoFactorSession,
 } from './ducks'
 
 import {
@@ -91,7 +90,7 @@ function* logoutFlow() {
   yield call(goToMain)
 }
 
-export function* authSaga() {
+export default function* authSaga() {
   yield [
     takeLatest(REHYDRATE, verifyTokenFlow),
     takeLatest(LOGIN_REQUEST, loginFlow),
@@ -99,8 +98,3 @@ export function* authSaga() {
     takeLatest(EXPIRE_AUTH_DATA, logoutFlow),
   ]
 }
-
-// Bootstrap sagas
-export default [
-  authSaga,
-]

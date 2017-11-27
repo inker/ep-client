@@ -1,3 +1,6 @@
+import { REHYDRATE } from 'redux-persist'
+import { get } from 'lodash'
+
 export const LOGIN_REQUEST = 'easypay/Auth/LOGIN_REQUEST'
 
 export const VERIFY_AUTH_TOKEN = 'easypay/Auth/VERIFY_AUTH_TOKEN'
@@ -25,15 +28,6 @@ export function requestAuthData(identifier, password, rememberMe) {
       identifier,
       password,
       rememberMe,
-    },
-  }
-}
-
-export function setTwoFactorSession(twoFactorSession) {
-  return {
-    type: TWO_FACTOR_SESSION,
-    payload: {
-      twoFactorSession,
     },
   }
 }
@@ -75,22 +69,65 @@ export function verifyAuthToken(value) {
   }
 }
 
-export function registerRequest(password, twoFactor) {
-  return {
-    type: REGISTER_REQUEST,
-    payload: {
-      password,
-      twoFactor,
-    },
-  }
+
+/* REDUCER */
+
+function onRehydrate(state, payload) {
+  const auth = get(payload, 'auth.auth')
+  return auth ? {
+    ...state,
+    auth,
+    // specialKey: processSpecial(incoming.specialKey),
+  } : state
 }
 
-export function registerSuccess(value, error) {
-  return {
-    type: REGISTER_SUCCESS,
-    payload: {
-      value,
-    },
-    error,
+const initialState = {
+  auth: {
+    token: null,
+  },
+}
+
+export default function (state = initialState, { type, payload = {} }) {
+  const { identifier, token } = state.auth
+  switch (type) {
+    case REHYDRATE:
+      return onRehydrate(state, payload)
+
+    case SET_AUTH_DATA:
+      return {
+        ...state,
+        auth: {
+          // email: payload.accountInfo.email,
+          token: payload.token,
+        },
+      }
+
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        auth: {
+          identifier,
+          ...payload,
+        },
+        isLoading: true,
+        registerSuccess: false,
+        passwordResetSuccess: false,
+        passwordUpdateSuccess: false,
+        addPaymentCardSuccess: false,
+      }
+
+    case VERIFY_REQUEST: {
+      return {
+        ...state,
+        auth: {
+          twoFactorSession: state.auth.twoFactorSession,
+          secretCode: payload.secretCode,
+        },
+        isLoading: true,
+      }
+    }
+
+    default:
+      return state
   }
 }

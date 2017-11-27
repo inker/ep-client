@@ -6,6 +6,8 @@ import {
   Switch,
 } from 'react-router-dom'
 
+import LoginPage from './pages/Auth/Login'
+
 export default class Routes extends PureComponent {
   render() {
     return (
@@ -13,7 +15,7 @@ export default class Routes extends PureComponent {
         <Switch>
           <Route
             path="/login"
-            component={Login}
+            component={LoginPage}
           />
         </Switch>
       </Router>

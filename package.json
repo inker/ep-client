@@ -21,9 +21,12 @@
     "redux": "^3.7.2",
     "redux-persist": "^5.4.0",
     "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
     "styled-components": "^2.2.3"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -55,10 +58,15 @@
     "worker-loader": "^1.1.0"
   },
   "scripts": {
-    "build:prod": "webpack --colors --config webpack/webpack.config.js --env=prod",
+    "build:prod": "npm run rmdocs && webpack --colors --config webpack/webpack.config.js --env=prod",
     "build:analyze": "npm run rmdocs && webpack --colors --config webpack/webpack.config.js --env=analyze",
     "rmdocs": "rimraf docs",
-    "start": "npm run rmdocs && webpack-dev-server --colors --watch --config webpack/webpack.config.js --env=dev"
+    "server:dev": "forever forever/dev.json",
+    "server:prod": "forever forever/prod.json",
+    "webpack:dev": "webpack-dev-server --colors --watch --config webpack/webpack.config.js --env=dev",
+    "webpack:prod": "webpack-dev-server --colors --config webpack/webpack.config.js --env=prod",
+    "start": "npm run rmdocs && run-p webpack:prod server:prod",
+    "start:dev": "npm run rmdocs && run-p webpack:dev server:dev"
   },
   "repository": {
     "type": "git",

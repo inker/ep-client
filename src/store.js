@@ -4,19 +4,20 @@ import {
   applyMiddleware,
   compose,
 } from 'redux'
-import { browserHistory } from 'react-router'
-import { routerMiddleware, routerReducer } from 'react-router-redux'
-import { autoRehydrate } from 'redux-persist'
+// import { browserHistory } from 'react-router-dom'
+// import { routerMiddleware, routerReducer } from 'react-router-redux'
+// import { autoRehydrate } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 
 import globalReducer from './reducer'
 
-import authReducer from './containers/Auth/reducer'
-import authSagas from './containers/Auth/sagas'
+import authReducer from './pages/Auth/ducks'
+import authSagas from './pages/Auth/sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 
 const reducer = combineReducers({
+  global: globalReducer,
   auth: authReducer,
   // other reducers
 })
@@ -24,13 +25,14 @@ const reducer = combineReducers({
 const initialState = {}
 
 const middleware = [
-  routerMiddleware(browserHistory),
+  // routerMiddleware(browserHistory),
   sagaMiddleware,
 ]
 
 const enhancers = [
   applyMiddleware(...middleware),
-  autoRehydrate(),
+  // autoRehydrate(),
+  // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 ]
 

@@ -1,4 +1,4 @@
-import apify from '../../util/apify'
+import apify from '../utils/apify'
 
 const methods = {
   login: {
@@ -15,4 +15,4 @@ const methods = {
   },
 }
 
-export default apify(methods, 'http')
+export default apify(methods)
