@@ -1,7 +1,0 @@
-{
-  "sourceDir": "server",
-  "workingDir": ".",
-  "script": "index.js",
-  "watch": true,
-  "colors": true
-}
