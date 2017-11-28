@@ -13,7 +13,7 @@ import Page from '../components/Page'
 
 import LoginPage from '../pages/Auth/Login'
 import TopPanel from '../pages/Auth/TopPanel'
-import PhonePage from '../pages/Phone'
+import PhonePage from '../pages/Phones'
 
 import history from '../history'
 
@@ -30,7 +30,7 @@ export default class Routes extends PureComponent {
               component={LoginPage}
             />
             <Route
-              path="/phone"
+              path="/phones"
               component={PhonePage}
             />
           </Switch>

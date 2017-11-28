@@ -12,7 +12,7 @@ import Input from '../../components/Input'
 import InputWithHiddenLabel from '../../components/InputWithHiddenLabel'
 
 import { actions } from './ducks'
-import { selectAuth } from './selectors'
+import { selectPhones } from './selectors'
 
 const FormParent = styled.div`
   display: flex;
@@ -29,11 +29,9 @@ const FormParent = styled.div`
   }
 `
 
-class Login extends PureComponent {
+class Phones extends PureComponent {
   state = {
-    login: '',
-    password: '',
-    isSubmitted: false,
+    phoneNumber: '',
   }
 
   onInputChange = (e) => {
@@ -41,55 +39,69 @@ class Login extends PureComponent {
     console.log(value)
     this.setState({
       ...this.state,
-      login: value,
+      phoneNumber: value,
     })
   }
 
-  onPasswordChange = (e) => {
-    const { value } = e.target
-    console.log(value)
-    this.setState({
-      ...this.state,
-      password: value,
-    })
-  }
-
-  onSubmit = (e) => {
+  onAdd = (e) => {
     e.preventDefault()
     const { state, props } = this
-    const { login, password } = state
+    const { phoneNumber } = state
     this.setState({
       isSubmitted: true,
     })
-    props.actions.loginRequest(login, password)
+    props.actions.addPhoneNumberRequest(phoneNumber)
+  }
+
+  onRemove = (e) => {
+    e.preventDefault()
+    const { state, props } = this
+    const { phoneNumber } = state
+    this.setState({
+      isSubmitted: true,
+    })
+    props.actions.removePhoneNumberRequest(phoneNumber)
+  }
+
+  onCheck = (e) => {
+    e.preventDefault()
+    const { state, props } = this
+    const { phoneNumber } = state
+    this.setState({
+      isSubmitted: true,
+    })
+    props.actions.checkPhoneNumberRequest(phoneNumber)
   }
 
   render() {
     const { props, state } = this
-    const errorMessage = get(props, 'auth.error.message')
+    const { phones } = props
+    const errorMessage = get(props, 'phones.error.message')
     return (
       <FormParent>
+        {phones.added && `Phone number ${phones.phoneNumber} added`}
+        {phones.removed && `Phone number ${phones.phoneNumber} removed`}
+        {phones.exists !== undefined && `Phone number ${phones.phoneNumber} added`}
         <ErrorMessage>
           {errorMessage}
         </ErrorMessage>
         <Form onSubmit={this.onSubmit}>
           <InputWithHiddenLabel
-            label="login"
+            label="Number"
             type="text"
-            placeholder="Login"
+            placeholder="Phone number"
             autoFocus
             onChange={this.onInputChange}
           />
-          <InputWithHiddenLabel
-            label="password"
-            type="password"
-            placeholder="Password"
-            onChange={this.onPasswordChange}            
-          />
-          <Input
-            type="submit"
-            value="Go"
-          />
+          <button onClick={this.onAdd}>
+            Add
+          </button>
+          <button onClick={this.onRemove}>
+            Remove
+          </button>
+          <button onClick={this.onCheck}>
+            Check
+          </button>
         </Form>
       </FormParent>
     )
@@ -101,7 +113,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = createStructuredSelector({
-  auth: selectAuth(),
+  phones: selectPhones(),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Phones)

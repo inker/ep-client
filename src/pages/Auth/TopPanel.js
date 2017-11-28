@@ -4,12 +4,17 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { createStructuredSelector } from 'reselect'
+import styled from 'styled-components'
 
 import Bold from '../../components/Bold'
 import PseudoLink from '../../components/PseudoLink'
 
 import { actions } from './ducks'
 import { selectAuth } from './selectors'
+
+const Root = styled.div`
+  margin: 10px 0 10px 0;
+`
 
 class TopPanel extends PureComponent {
   onLogOut = (e) => {
@@ -18,22 +23,24 @@ class TopPanel extends PureComponent {
 
   render() {
     const authData = this.props.auth.data
-    if (!authData.token) {
-      return (
-        <Link to="/login">
-          Login
-        </Link>
-      )
-    }
     return (
-      <div>
-        Logged in as <Bold>
-          {authData.login}
-        </Bold>
-        . <PseudoLink onClick={this.onLogOut}>
-          Log out
-        </PseudoLink>
-      </div>
+      <Root>
+        {authData.token
+          ?
+          <div>
+            Logged in as <Bold>
+              {authData.login}
+            </Bold>
+            . <PseudoLink onClick={this.onLogOut}>
+              Sign out
+            </PseudoLink>
+          </div>
+          :
+          <Link to="/login">
+            Sign in
+      </Link>
+        }
+      </Root>
     )
   }
 }

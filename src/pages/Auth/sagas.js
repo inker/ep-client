@@ -10,11 +10,10 @@ import validateLogin from '../../utils/validateLogin'
 import validatePassword from '../../utils/validatePassword'
 
 import {
+  actions,
+
   LOGIN_REQUEST,
   EXPIRE_AUTH_DATA,
-  VERIFY_REQUEST,
-
-  actions,
   LOGOUT_REQUEST,
 } from './ducks'
 
@@ -22,13 +21,9 @@ import {
   selectAuth,
 } from './selectors'
 
-export function* getAccountAndSetAuthData(token) {
-  console.log('getting and setting:', token)
-  // const { response } = yield call(authApi.login, {
-  //   auth_token: token,
-  // })
+function* getAccountAndSetAuthData(token) {
   yield put(actions.setAuthData(token, null))
-  history.push('/phone')
+  history.push('/phones')
 }
 
 function* authorize(login, password) {

@@ -16,6 +16,9 @@ import globalReducer from './reducer'
 import authReducer from './pages/Auth/ducks'
 import authSagas from './pages/Auth/sagas'
 
+import phonesReducer from './pages/Phones/ducks'
+import phonesSagas from './pages/Phones/sagas'
+
 import history from './history'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -25,6 +28,7 @@ const combinedReducers = combineReducers({
   router: routerReducer,
   global: globalReducer,
   auth: authReducer,
+  phones: phonesReducer,
   // other reducers
 })
 
@@ -52,6 +56,7 @@ const enhancers = [
 const store = createStore(reducer, initialState, compose(...enhancers))
 
 sagaMiddleware.run(authSagas)
+sagaMiddleware.run(phonesSagas)
 // other sagas
 
 export default store
