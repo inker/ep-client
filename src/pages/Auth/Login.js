@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { get } from 'lodash'
 
 import { createStructuredSelector } from 'reselect'
 
 import Form from '../../components/Form'
+import ErrorMessage from '../../components/ErrorMessage'
 
 import { actions } from './ducks'
 import { selectAuth } from './selectors'
@@ -45,9 +47,13 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { state } = this
+    const { props, state } = this
+    const errorMessage = get(props, 'auth.error.message')
     return (
       <div>
+        <ErrorMessage>
+          {errorMessage}
+        </ErrorMessage>
         <Form onSubmit={this.onSubmit}>
           <input
             type="text"
