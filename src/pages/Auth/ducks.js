@@ -96,6 +96,7 @@ function onRehydrate(state, payload) {
   return data ? {
     ...state,
     data,
+    error: null,
     // specialKey: processSpecial(incoming.specialKey),
   } : state
 }

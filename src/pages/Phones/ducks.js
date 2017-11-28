@@ -1,3 +1,5 @@
+import { REHYDRATE } from 'redux-persist'
+
 import errors from '../../errors'
 
 export const ADD_PHONE_NUMBER_REQUEST = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST'
@@ -61,7 +63,7 @@ function removePhoneNumberRequestSuccess(phoneNumber, removed) {
 
 function checkPhoneNumberRequest(phoneNumber) {
   return {
-    type: CHECK_PHONE_NUMBER_REQUEST_SUCCESS,
+    type: CHECK_PHONE_NUMBER_REQUEST,
     payload: {
       phoneNumber,
     },
@@ -104,6 +106,12 @@ export default function (state = initialState, { type, payload = {} }) {
   } = payload
 
   switch (type) {
+    case REHYDRATE:
+      return {
+        ...state,
+        error: null,
+      }
+
     case ADD_PHONE_NUMBER_REQUEST:
       return {
         phoneNumber,

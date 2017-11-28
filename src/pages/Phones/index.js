@@ -76,14 +76,17 @@ class Phones extends PureComponent {
   render() {
     const { props, state } = this
     const { phones } = props
-    const errorMessage = get(props, 'phones.error.message')
+    const error = get(props, 'phones.error')
+    const type = error && error.type
     return (
       <FormParent>
         {phones.added && `Phone number ${phones.phoneNumber} added`}
         {phones.removed && `Phone number ${phones.phoneNumber} removed`}
-        {phones.exists !== undefined && `Phone number ${phones.phoneNumber} added`}
+        {phones.exists !== undefined &&
+          `Phone number ${phones.phoneNumber} ${phones.exists ? 'exists' : 'does not exist'}`
+        }
         <ErrorMessage>
-          {errorMessage}
+          {type === 'NOT_FOUND' ? 'Phone number was not found' : error && error.message}
         </ErrorMessage>
         <Form onSubmit={this.onSubmit}>
           <InputWithHiddenLabel

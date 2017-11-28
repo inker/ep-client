@@ -46,7 +46,7 @@ function* removePhoneNumber({ payload }) {
   if (!data.phoneNumber) {
     return yield put(actions.requestError('NOT_FOUND'))
   }
-  yield put(actions.addPhoneNumberRequestSuccess(data.phoneNumber, true))
+  yield put(actions.removePhoneNumberRequestSuccess(data.phoneNumber, true))
 }
 
 function* checkPhoneNumber({ payload }) {
@@ -58,7 +58,7 @@ function* checkPhoneNumber({ payload }) {
   if (error) {
     return yield put(actions.requestError(error))
   }
-  yield put(actions.addPhoneNumberRequestSuccess(phoneNumber, data.exists))
+  yield put(actions.checkPhoneNumberRequestSuccess(phoneNumber, data.exists))
 }
 
 export default function* phonesSaga() {
