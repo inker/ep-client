@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { createStructuredSelector } from 'reselect'
 
 import Bold from '../../components/Bold'
+import PseudoLink from '../../components/PseudoLink'
 
 import { actions } from './ducks'
 import { selectAuth } from './selectors'
@@ -29,9 +30,9 @@ class TopPanel extends PureComponent {
         Logged in as <Bold>
           {authData.login}
         </Bold>
-        . <a onClick={this.onLogOut}>
+        . <PseudoLink onClick={this.onLogOut}>
           Log out
-        </a>
+        </PseudoLink>
       </div>
     )
   }

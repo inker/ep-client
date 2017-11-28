@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect'
 
 import Form from '../../components/Form'
 import ErrorMessage from '../../components/ErrorMessage'
+import InputWithHiddenLabel from '../../components/InputWithHiddenLabel'
 
 import { actions } from './ducks'
 import { selectAuth } from './selectors'
@@ -55,12 +56,14 @@ class Login extends PureComponent {
           {errorMessage}
         </ErrorMessage>
         <Form onSubmit={this.onSubmit}>
-          <input
+          <InputWithHiddenLabel
+            label="login"
             type="text"
             placeholder="Login"
             onChange={this.onInputChange}
           />
-          <input
+          <InputWithHiddenLabel
+            label="password"
             type="password"
             placeholder="Password"
             onChange={this.onPasswordChange}            
