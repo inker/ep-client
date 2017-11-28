@@ -116,7 +116,7 @@ export default function (state = initialState, { type, payload = {} }) {
       return {
         ...state,
         data: {
-          ...payload,
+          login: payload.login,
         },
         isLoading: true,
       }
