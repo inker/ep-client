@@ -12,14 +12,12 @@ export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
 export const VERIFY_REQUEST = 'easypay/Auth/VERIFY_REQUEST'
 export const REQUEST_ERROR = 'easypay/Auth/REQUEST_ERROR'
 
-function requestError(type, message, cause, backtrace) {
+function requestError(type, message) {
   return {
     type: REQUEST_ERROR,
     payload: {
       type,
       message,
-      cause,
-      backtrace,
     },
   }
 }
@@ -128,6 +126,20 @@ export default function (state = initialState, { type, payload = {} }) {
           login,
           token: payload.token,
         },
+        isLoading: false,
+      }
+
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      }
+    }
+
+    case EXPIRE_AUTH_DATA:
+      return {
+        ...state,
+        data: {},
         isLoading: false,
       }
 

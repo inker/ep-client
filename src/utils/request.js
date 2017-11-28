@@ -8,11 +8,13 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
-export default (url, json) => {
+export default async (url, json) => {
   const data = {
     method,
     headers,
     body: JSON.stringify(json),
   }
-  return timelimit(fetch(url, data), requestTimeout).then((res) => res.json())
+  const reqPromise = fetch(url, data)
+  const res = await timelimit(reqPromise, requestTimeout)
+  return res.json()
 }

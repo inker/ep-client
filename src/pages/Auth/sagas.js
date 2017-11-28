@@ -60,8 +60,12 @@ function* loginFlow({ payload }) {
     yield call(goToMain)
   } else if (winner.login) {
     console.log(winner.login)
-    const { data } = winner.login
+    const { error, data } = winner.login
     console.log('auth', data)
+    if (error) {
+      yield put(actions.requestError(error))
+      return
+    }
     if (data.token) {
       yield call(getAccountAndSetAuthData, data.token)
     }
@@ -69,9 +73,13 @@ function* loginFlow({ payload }) {
 }
 
 function* logoutFlow() {
-  const { data } = yield select(selectAuth())
-  const logout = yield call(authApi.logout, data)
-  
+  const auth = yield select(selectAuth())
+  const { error, data } = yield call(authApi.logout, auth.data)
+  if (error) {
+    yield put(actions.requestError(error))
+    return
+  }
+  yield put(actions.expireAuthData())
 }
 
 export default function* authSaga() {
