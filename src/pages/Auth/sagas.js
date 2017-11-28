@@ -6,6 +6,9 @@ import { REHYDRATE } from 'redux-persist'
 import history from '../../history'
 import authApi from '../../api/auth'
 
+import validateLogin from '../../utils/validateLogin'
+import validatePassword from '../../utils/validatePassword'
+
 import {
   LOGIN_REQUEST,
   EXPIRE_AUTH_DATA,
@@ -35,36 +38,45 @@ function* authorize(login, password) {
   })
 }
 
-function* goToMain() {
-  yield history.push('/')
+function* goToLoginPage() {
+  yield history.push('/login')
 }
 
 // ========== FLOWS ==========
 
-function verifyTokenFlow({ payload }) {
+function* verifyTokenFlow({ payload }) {
   console.log('verifying token', payload)
-  const token = get(payload, 'auth.data.token')
-  if (!token) {
-    history.push('/login')
+  const authData = get(payload, 'auth.data')
+  if (!authData.token) {
+    yield put(actions.expireAuthData())
+  }
+  const { error } = yield call(authApi.verifyToken, authData)
+  if (error) {
+    yield put(actions.expireAuthData())
   }
 }
 
 function* loginFlow({ payload }) {
   const { login, password } = payload
+  if (!validateLogin(login)) {
+    return yield put(actions.requestError('INVALID_LOGIN'))
+  }
+  if (!validatePassword(password)) {
+    return yield put(actions.requestError('EMPTY_PASSWORD'))
+  }
   const winner = yield race({
     login: call(authorize, login, password),
     logout: take(LOGOUT_REQUEST),
   })
   if (winner.logout) {
     console.log(winner.logout)
-    yield call(goToMain)
+    yield call(goToLoginPage)
   } else if (winner.login) {
     console.log(winner.login)
     const { error, data } = winner.login
     console.log('auth', data)
     if (error) {
-      yield put(actions.requestError(error))
-      return
+      return yield put(actions.requestError(error))
     }
     if (data.token) {
       yield call(getAccountAndSetAuthData, data.token)
@@ -74,10 +86,9 @@ function* loginFlow({ payload }) {
 
 function* logoutFlow() {
   const auth = yield select(selectAuth())
-  const { error, data } = yield call(authApi.logout, auth.data)
+  const { error } = yield call(authApi.logout, auth.data)
   if (error) {
-    yield put(actions.requestError(error))
-    return
+    return yield put(actions.requestError(error))
   }
   yield put(actions.expireAuthData())
 }
@@ -87,5 +98,6 @@ export default function* authSaga() {
     takeLatest(REHYDRATE, verifyTokenFlow),
     takeLatest(LOGIN_REQUEST, loginFlow),
     takeLatest(LOGOUT_REQUEST, logoutFlow),
+    takeLatest(EXPIRE_AUTH_DATA, goToLoginPage),
   ]
 }

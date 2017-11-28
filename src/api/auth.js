@@ -9,13 +9,9 @@ const methods = {
     endpoint: 'auth/logout',
     required: ['data'],
   },
-  verify: {
-    endpoint: 'auth.two.factor',
+  verifyToken: {
+    endpoint: 'auth/verify',
     required: ['auth'],
-  },
-  join: {
-    endpoint: 'auth.reg.confirm',
-    required: ['data'],
   },
 }
 
