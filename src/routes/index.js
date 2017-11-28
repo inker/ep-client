@@ -9,6 +9,8 @@ import {
 
 import { ConnectedRouter as Router } from 'react-router-redux'
 
+import Page from '../components/Page'
+
 import LoginPage from '../pages/Auth/Login'
 import TopPanel from '../pages/Auth/TopPanel'
 import PhonePage from '../pages/Phone'
@@ -20,7 +22,7 @@ export default class Routes extends PureComponent {
   render() {
     return (
       <Router history={history}>
-        <div>
+        <Page>
           <TopPanel />
           <Switch>
             <Route
@@ -32,7 +34,7 @@ export default class Routes extends PureComponent {
               component={PhonePage}
             />
           </Switch>
-        </div>
+        </Page>
       </Router>
     )
   }

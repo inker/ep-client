@@ -2,15 +2,32 @@ import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { get } from 'lodash'
+import styled from 'styled-components'
 
 import { createStructuredSelector } from 'reselect'
 
 import Form from '../../components/Form'
 import ErrorMessage from '../../components/ErrorMessage'
+import Input from '../../components/Input'
 import InputWithHiddenLabel from '../../components/InputWithHiddenLabel'
 
 import { actions } from './ducks'
 import { selectAuth } from './selectors'
+
+const FormParent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  self-align: center;
+  width: 300px;
+  height: 300px;
+  border: 1px solid gray;
+  @media (max-width: 999px) {
+    width: 100%;
+    font-size: 24px;
+  }
+`
 
 class Login extends PureComponent {
   state = {
@@ -51,7 +68,7 @@ class Login extends PureComponent {
     const { props, state } = this
     const errorMessage = get(props, 'auth.error.message')
     return (
-      <div>
+      <FormParent>
         <ErrorMessage>
           {errorMessage}
         </ErrorMessage>
@@ -68,12 +85,12 @@ class Login extends PureComponent {
             placeholder="Password"
             onChange={this.onPasswordChange}            
           />
-          <input
+          <Input
             type="submit"
             value="Go"
           />
         </Form>
-      </div>
+      </FormParent>
     )
   }
 }
