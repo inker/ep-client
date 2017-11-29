@@ -11,12 +11,13 @@ export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
 export const VERIFY_REQUEST = 'easypay/Auth/VERIFY_REQUEST'
 export const REQUEST_ERROR = 'easypay/Auth/REQUEST_ERROR'
 
-function requestError(type) {
+function requestError(error) {
+  const { type, message } = error
   return {
     type: REQUEST_ERROR,
     payload: {
       type,
-      message: errorMessages[type] || 'Something went wrong',
+      message: message || errorMessages[type] || 'Something went wrong',
     },
   }
 }

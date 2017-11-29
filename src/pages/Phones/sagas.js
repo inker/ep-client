@@ -21,7 +21,9 @@ function* addPhoneNumber({ payload }) {
   const auth = yield select(selectAuth())
   const { phoneNumber } = payload
   if (!validatePhoneNumber(phoneNumber)) {
-    return yield put(actions.requestError('INVALID_PHONE_NUMBER'))
+    return yield put(actions.requestError({
+      type: 'INVALID_PHONE_NUMBER',
+    }))
   }
 
   const { error, data } = yield call(phonesApi.addOne, auth.data, {
@@ -37,7 +39,9 @@ function* removePhoneNumber({ payload }) {
   const auth = yield select(selectAuth())
   const { phoneNumber } = payload
   if (!validatePhoneNumber(phoneNumber)) {
-    return yield put(actions.requestError('INVALID_PHONE_NUMBER'))
+    return yield put(actions.requestError({
+      type: 'INVALID_PHONE_NUMBER',
+    }))
   }
 
   const { error, data } = yield call(phonesApi.removeOne, auth.data, {
@@ -47,7 +51,9 @@ function* removePhoneNumber({ payload }) {
     return yield put(actions.requestError(error))
   }
   if (!data.phoneNumber) {
-    return yield put(actions.requestError('NOT_FOUND'))
+    return yield put(actions.requestError({
+      type: 'NOT_FOUND',
+    }))
   }
   yield put(actions.removePhoneNumberRequestSuccess(data.phoneNumber, true))
 }
@@ -56,7 +62,9 @@ function* checkPhoneNumber({ payload }) {
   const auth = yield select(selectAuth())
   const { phoneNumber } = payload
   if (!validatePhoneNumber(phoneNumber)) {
-    return yield put(actions.requestError('INVALID_PHONE_NUMBER'))
+    return yield put(actions.requestError({
+      type: 'INVALID_PHONE_NUMBER',
+    }))
   }
 
   const { error, data } = yield call(phonesApi.check, auth.data, {

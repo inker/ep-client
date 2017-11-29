@@ -21,14 +21,18 @@ export default async (url, json) => {
     const res = await timelimit(reqPromise, requestTimeout)
     if (!res.ok) {
       return {
-        error: CONNECTION_ERROR,
+        error: {
+          type: CONNECTION_ERROR,
+        },
       }
     }
     return res.json()
   } catch (err) {
     console.error(err)
     return {
-      error: CONNECTION_ERROR,
+      error: {
+        type: 'SERVER_ERROR',
+      },
     }
   }
 }

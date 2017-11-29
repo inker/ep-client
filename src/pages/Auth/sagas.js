@@ -63,16 +63,24 @@ function* verifyTokenFlow({ payload }) {
 // when the user sends login request
 function* loginFlow({ payload }) {
   const { login, password } = payload
+
   if (!validateLogin(login)) {
-    return yield put(actions.requestError('INVALID_LOGIN'))
+    return yield put(actions.requestError({
+      type: 'INVALID_LOGIN',
+    }))
   }
+
   if (!validatePassword(password)) {
-    return yield put(actions.requestError('EMPTY_PASSWORD'))
+    return yield put(actions.requestError({
+      type: 'EMPTY_PASSWORD',
+    }))
   }
+
   const winner = yield race({
     login: call(authorize, login, password),
     logout: take(LOGOUT_REQUEST),
   })
+
   if (winner.login) {
     const { error, data } = winner.login
     if (error) {

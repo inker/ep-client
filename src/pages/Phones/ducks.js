@@ -15,12 +15,13 @@ export const CHECK_PHONE_NUMBER_REQUEST_SUCCESS = 'easypay/Phone/CHECK_PHONE_NUM
 
 export const REQUEST_ERROR = 'easypay/Phone/REQUEST_ERROR'
 
-function requestError(type) {
+function requestError(error) {
+  const { type, message } = error
   return {
     type: REQUEST_ERROR,
     payload: {
       type,
-      message: errorMessages[type] || 'Something went wrong',
+      message: message || errorMessages[type] || 'Something went wrong',
     },
   }
 }
