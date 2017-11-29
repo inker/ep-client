@@ -11,12 +11,12 @@ const headers = {
 const CONNECTION_ERROR = 'CONNECTION_ERROR'
 
 export default async (url, json) => {
+  const data = {
+    method,
+    headers,
+    body: JSON.stringify(json),
+  }
   try {
-    const data = {
-      method,
-      headers,
-      body: JSON.stringify(json),
-    }
     const reqPromise = fetch(url, data)
     const res = await timelimit(reqPromise, requestTimeout)
     if (!res.ok) {
