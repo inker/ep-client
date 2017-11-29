@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-const ErrorMessage = styled.span`
-  font-weight: bold;
+import Message from './Message'
+
+const ErrorMessage = styled(Message)`
   color: red;
-  text-align: center;
 `
 
 export default ErrorMessage

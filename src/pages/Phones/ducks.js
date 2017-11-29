@@ -2,6 +2,10 @@ import { REHYDRATE } from 'redux-persist'
 
 import errorMessages from '../../errorMessages'
 
+import {
+  EXPIRE_AUTH_DATA,
+} from '../Auth/ducks'
+
 export const ADD_PHONE_NUMBER_REQUEST = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST'
 export const ADD_PHONE_NUMBER_REQUEST_SUCCESS = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST_SUCCESS'
 
@@ -111,6 +115,9 @@ export default function (state = initialState, { type, payload = {} }) {
         ...state,
         error: null,
       }
+
+    case EXPIRE_AUTH_DATA:
+      return initialState
 
     case ADD_PHONE_NUMBER_REQUEST:
       return {

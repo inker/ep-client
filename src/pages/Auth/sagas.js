@@ -8,6 +8,7 @@ import authApi from '../../api/auth'
 
 import validateLogin from '../../utils/validateLogin'
 import validatePassword from '../../utils/validatePassword'
+import { selectPathname } from '../../utils/selectors'
 
 import {
   actions,
@@ -19,6 +20,7 @@ import {
 
 import {
   selectAuth,
+  selectIsLoginPage,
 } from './selectors'
 
 function* getAccountAndSetAuthData(token) {
@@ -33,8 +35,12 @@ function* authorize(login, password) {
   })
 }
 
-function* goToLoginPage() {
-  yield history.push('/login')
+function goToIndexPage() {
+  history.push('/')
+}
+
+function goToLoginPage() {
+  history.push('/login')
 }
 
 // ========== FLOWS ==========
@@ -47,7 +53,11 @@ function* verifyTokenFlow({ payload }) {
   }
   const { error } = yield call(authApi.verifyToken, authData)
   if (error) {
-    yield put(actions.expireAuthData())
+    return yield put(actions.expireAuthData())
+  }
+  const pathname = yield select(selectPathname())
+  if (pathname === '/login') {
+    goToIndexPage()
   }
 }
 

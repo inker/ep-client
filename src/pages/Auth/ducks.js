@@ -108,7 +108,7 @@ const initialState = {
 }
 
 export default function (state = initialState, { type, payload = {} }) {
-  const { login, token } = state.data
+  const { login } = state.data
   switch (type) {
     case REHYDRATE:
       return onRehydrate(state, payload)
@@ -141,7 +141,6 @@ export default function (state = initialState, { type, payload = {} }) {
 
     case EXPIRE_AUTH_DATA:
       return {
-        ...state,
         data: {},
         isLoading: false,
       }

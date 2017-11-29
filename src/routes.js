@@ -9,13 +9,13 @@ import {
 
 import { ConnectedRouter as Router } from 'react-router-redux'
 
-import Page from '../components/Page'
+import Page from './components/Page'
 
-import LoginPage from '../pages/Auth/Login'
-import TopPanel from '../pages/Auth/TopPanel'
-import PhonePage from '../pages/Phones'
+import LoginPage from './pages/Auth/Login'
+import TopPanel from './pages/Auth/TopPanel'
+import PhonePage from './pages/Phones'
 
-import history from '../history'
+import history from './history'
 
 
 export default class Routes extends PureComponent {
@@ -32,6 +32,10 @@ export default class Routes extends PureComponent {
             <Route
               path="/phones"
               component={PhonePage}
+            />
+            <Redirect
+              from="/"
+              to="/phones"
             />
           </Switch>
         </Page>
