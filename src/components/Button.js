@@ -8,7 +8,7 @@ const Button = styled.button`
   @media (max-width: 999px) {
     width: 100%;
     height: 100px;
-    font-size: 30px;
+    font-size: 25px;
   }
 `
 

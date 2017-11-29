@@ -26,7 +26,7 @@ const FormParent = styled.div`
 
   @media (max-width: 999px) {
     width: 100%;
-    font-size: 24px;
+    font-size: 25px;
   }
 `
 

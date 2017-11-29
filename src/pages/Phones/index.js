@@ -28,7 +28,7 @@ const FormParent = styled.div`
 
   @media (max-width: 999px) {
     width: 100%;
-    font-size: 24px;
+    font-size: 25px;
   }
 `
 
@@ -82,21 +82,17 @@ class Phones extends PureComponent {
     const type = error && error.type
     return (
       <FormParent>
-        {phones.added &&
-          <Message>
-            Phone number {phones.phoneNumber} added
-          </Message>
-        }
-        {phones.removed &&
-          <Message>
-            Phone number {phones.phoneNumber} removed
-          </Message>
-        }
-        {phones.exists !== undefined &&
-          <Message>
-            Phone number {phones.phoneNumber} {phones.exists ? 'exists' : 'does not exist'}
-          </Message>
-        }
+        <Message>
+          {phones.added &&
+            `Phone number ${phones.phoneNumber} added`
+          }
+          {phones.removed &&
+            `Phone number ${phones.phoneNumber} removed`
+          }
+          {phones.exists !== undefined &&
+            `Phone number ${phones.phoneNumber} ${phones.exists ? 'exists' : 'does not exist'}`
+          }
+        </Message>
         <ErrorMessage>
           {type === 'NOT_FOUND' ? 'Phone number was not found' : error && error.message}
         </ErrorMessage>

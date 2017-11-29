@@ -14,6 +14,11 @@ import { selectAuth } from './selectors'
 
 const Root = styled.div`
   margin: 10px 0 10px 0;
+  font-size: 15px;
+
+  @media (max-width: 999px) {
+    font-size: 25px;
+  }  
 `
 
 class TopMenu extends PureComponent {

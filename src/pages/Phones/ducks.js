@@ -1,5 +1,3 @@
-import { REHYDRATE } from 'redux-persist'
-
 import errorMessages from '../../errorMessages'
 
 import {
@@ -110,7 +108,6 @@ export default function (state = initialState, { type, payload = {} }) {
   } = payload
 
   switch (type) {
-    case REHYDRATE:
     case EXPIRE_AUTH_DATA:
       return initialState
 
