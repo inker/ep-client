@@ -3,7 +3,7 @@ export default {
   SERVER_ERROR: 'Server error',
   CONNECTION_ERROR: 'Connection error',
 
-  ACCESS_DENIED: 'Access denied',
+  ACCESS_DENIED: 'You have no permission to perform this action',
 
   NO_AUTH: 'No auth data provided',
   INVALID_LOGIN: 'Invalid login',
