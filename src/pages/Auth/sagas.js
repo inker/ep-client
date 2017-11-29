@@ -12,7 +12,6 @@ import { selectPathname } from '../../utils/selectors'
 
 import {
   actions,
-
   LOGIN_REQUEST,
   EXPIRE_AUTH_DATA,
   LOGOUT_REQUEST,
