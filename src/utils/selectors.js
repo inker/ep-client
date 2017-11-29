@@ -1,3 +1,5 @@
+/* GLOBAL SELECTORS */
+
 import { get } from 'lodash'
 
 export const selectPathname = () =>

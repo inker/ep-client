@@ -4,6 +4,8 @@ import {
   EXPIRE_AUTH_DATA,
 } from '../Auth/ducks'
 
+/* CONSTANTS */
+
 export const ADD_PHONE_NUMBER_REQUEST = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST'
 export const ADD_PHONE_NUMBER_REQUEST_SUCCESS = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST_SUCCESS'
 
@@ -14,6 +16,8 @@ export const CHECK_PHONE_NUMBER_REQUEST = 'easypay/Phone/CHECK_PHONE_NUMBER_REQU
 export const CHECK_PHONE_NUMBER_REQUEST_SUCCESS = 'easypay/Phone/CHECK_PHONE_NUMBER_REQUEST_SUCCESS'
 
 export const REQUEST_ERROR = 'easypay/Phone/REQUEST_ERROR'
+
+/* ACTIONS */
 
 function requestError(error) {
   const { type, message } = error

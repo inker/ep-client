@@ -3,13 +3,17 @@ import { get } from 'lodash'
 
 import errorMessages from '../../errorMessages'
 
+/* CONSTANTS */
+
 export const LOGIN_REQUEST = 'easypay/Auth/LOGIN_REQUEST'
 export const SET_AUTH_TOKEN = 'easypay/Auth/SET_AUTH_TOKEN'
+
 export const LOGOUT_REQUEST = 'easypay/Auth/LOGOUT_REQUEST'
-export const VERIFY_AUTH_TOKEN = 'easypay/Auth/VERIFY_AUTH_TOKEN'
 export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
-export const VERIFY_REQUEST = 'easypay/Auth/VERIFY_REQUEST'
+
 export const REQUEST_ERROR = 'easypay/Auth/REQUEST_ERROR'
+
+/* ACTIONS */
 
 function requestError(error) {
   const { type, message } = error
@@ -39,15 +43,6 @@ function logoutRequest() {
   }
 }
 
-function verifyRequest(secretCode) {
-  return {
-    type: VERIFY_REQUEST,
-    payload: {
-      secretCode,
-    },
-  }
-}
-
 function setAuthData(token, accountInfo) {
   return {
     type: SET_AUTH_TOKEN,
@@ -67,23 +62,12 @@ function expireAuthData() {
   }
 }
 
-function verifyAuthToken(value) {
-  return {
-    type: VERIFY_AUTH_TOKEN,
-    payload: {
-      value,
-    },
-  }
-}
-
 export const actions = {
   requestError,
   loginRequest,
   logoutRequest,
-  verifyRequest,
   setAuthData,
   expireAuthData,
-  verifyAuthToken,
 }
 
 

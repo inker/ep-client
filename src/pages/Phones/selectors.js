@@ -1,1 +1,2 @@
-export const selectPhones = () => (state) => state.phones
+export const selectPhones = () =>
+  (state) => state.phones

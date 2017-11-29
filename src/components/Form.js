@@ -5,6 +5,7 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   @media (max-width: 999px) {
     width: 100%;
   }
