@@ -3,8 +3,12 @@ export default {
   SERVER_ERROR: 'Server error',
   CONNECTION_ERROR: 'Connection error',
 
+  ACCESS_DENIED: 'Access denied',
+
+  NO_AUTH: 'No auth data provided',
   INVALID_LOGIN: 'Invalid login',
   EMPTY_PASSWORD: 'No password supplied',
+  INVALID_TOKEN: 'Invalid token',
   NO_SUCH_USER: 'User does not exist',
   INCORRECT_PASSWORD: 'Password is incorrect',
 
