@@ -16,7 +16,7 @@ const Root = styled.div`
   margin: 10px 0 10px 0;
 `
 
-class TopPanel extends PureComponent {
+class TopMenu extends PureComponent {
   onLogOut = (e) => {
     this.props.actions.logoutRequest()
   }
@@ -56,4 +56,4 @@ const mapStateToProps = createStructuredSelector({
   // isAccountDialogOpen: selectAccountDialogState(),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(TopMenu)

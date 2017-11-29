@@ -111,11 +111,6 @@ export default function (state = initialState, { type, payload = {} }) {
 
   switch (type) {
     case REHYDRATE:
-      return {
-        ...state,
-        error: null,
-      }
-
     case EXPIRE_AUTH_DATA:
       return initialState
 

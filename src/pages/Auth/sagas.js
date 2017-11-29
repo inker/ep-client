@@ -20,7 +20,6 @@ import {
 
 import {
   selectAuth,
-  selectIsLoginPage,
 } from './selectors'
 
 function* getAccountAndSetAuthData(token) {
@@ -45,11 +44,11 @@ function goToLoginPage() {
 
 // ========== FLOWS ==========
 
+// verify token on start
 function* verifyTokenFlow({ payload }) {
-  console.log('verifying token', payload)
-  const authData = get(payload, 'auth.data')
+  const authData = get(payload, 'data', {})
   if (!authData.token) {
-    yield put(actions.expireAuthData())
+    return yield put(actions.expireAuthData())
   }
   const { error } = yield call(authApi.verifyToken, authData)
   if (error) {
@@ -61,6 +60,7 @@ function* verifyTokenFlow({ payload }) {
   }
 }
 
+// when the user sends login request
 function* loginFlow({ payload }) {
   const { login, password } = payload
   if (!validateLogin(login)) {
@@ -73,13 +73,8 @@ function* loginFlow({ payload }) {
     login: call(authorize, login, password),
     logout: take(LOGOUT_REQUEST),
   })
-  if (winner.logout) {
-    console.log(winner.logout)
-    yield call(goToLoginPage)
-  } else if (winner.login) {
-    console.log(winner.login)
+  if (winner.login) {
     const { error, data } = winner.login
-    console.log('auth', data)
     if (error) {
       return yield put(actions.requestError(error))
     }
@@ -89,6 +84,7 @@ function* loginFlow({ payload }) {
   }
 }
 
+// when the user sends logout request
 function* logoutFlow() {
   const auth = yield select(selectAuth())
   const { error } = yield call(authApi.logout, auth.data)

@@ -6,7 +6,7 @@ const Page = styled.div`
   align-items: center;
   width: 1000px;
   height: 500px;
-  /* border: 1px solid gray; */
+
   @media (max-width: 999px) {
     width: 100%;
     font-size: 2em;

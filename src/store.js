@@ -6,7 +6,7 @@ import {
 } from 'redux'
 // import { browserHistory } from 'react-router-dom'
 // import { routerMiddleware, routerReducer } from 'react-router-redux'
-import { persistReducer } from 'redux-persist'
+import { persistReducer, persistStore } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import { routerMiddleware, routerReducer } from 'react-router-redux'
 import localForage from 'localforage'
@@ -24,20 +24,18 @@ import history from './history'
 const sagaMiddleware = createSagaMiddleware()
 const routerMW = routerMiddleware(history)
 
-const combinedReducers = combineReducers({
-  router: routerReducer,
-  global: globalReducer,
-  auth: authReducer,
-  phones: phonesReducer,
-  // other reducers
-})
-
-const persistReducerConfig = {
-  key: 'someKey',
+const persistAuthReducerConfig = {
+  key: 'authKey',
   storage: localForage,
 }
 
-const reducer = persistReducer(persistReducerConfig, combinedReducers)
+const reducer = combineReducers({
+  router: routerReducer,
+  global: globalReducer,
+  auth: persistReducer(persistAuthReducerConfig, authReducer),
+  phones: phonesReducer,
+  // other reducers
+})
 
 const initialState = {}
 
@@ -58,5 +56,7 @@ const store = createStore(reducer, initialState, compose(...enhancers))
 sagaMiddleware.run(authSagas)
 sagaMiddleware.run(phonesSagas)
 // other sagas
+
+export const persistor = persistStore(store)
 
 export default store

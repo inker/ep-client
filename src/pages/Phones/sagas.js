@@ -1,7 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects'
-import { get } from 'lodash'
 
-import history from '../../history'
 import phonesApi from '../../api/phones'
 
 import validatePhoneNumber from '../../utils/validatePhoneNumber'
@@ -25,6 +23,7 @@ function* addPhoneNumber({ payload }) {
   if (!validatePhoneNumber(phoneNumber)) {
     return yield put(actions.requestError('INVALID_PHONE_NUMBER'))
   }
+
   const { error, data } = yield call(phonesApi.addOne, auth.data, {
     phoneNumber,
   })
@@ -37,6 +36,10 @@ function* addPhoneNumber({ payload }) {
 function* removePhoneNumber({ payload }) {
   const auth = yield select(selectAuth())
   const { phoneNumber } = payload
+  if (!validatePhoneNumber(phoneNumber)) {
+    return yield put(actions.requestError('INVALID_PHONE_NUMBER'))
+  }
+
   const { error, data } = yield call(phonesApi.removeOne, auth.data, {
     phoneNumber,
   })
@@ -52,6 +55,10 @@ function* removePhoneNumber({ payload }) {
 function* checkPhoneNumber({ payload }) {
   const auth = yield select(selectAuth())
   const { phoneNumber } = payload
+  if (!validatePhoneNumber(phoneNumber)) {
+    return yield put(actions.requestError('INVALID_PHONE_NUMBER'))
+  }
+
   const { error, data } = yield call(phonesApi.check, auth.data, {
     phoneNumber,
   })

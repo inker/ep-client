@@ -5,11 +5,8 @@ import errorMessages from '../../errorMessages'
 
 export const LOGIN_REQUEST = 'easypay/Auth/LOGIN_REQUEST'
 export const SET_AUTH_TOKEN = 'easypay/Auth/SET_AUTH_TOKEN'
-
 export const LOGOUT_REQUEST = 'easypay/Auth/LOGOUT_REQUEST'
-
 export const VERIFY_AUTH_TOKEN = 'easypay/Auth/VERIFY_AUTH_TOKEN'
-
 export const EXPIRE_AUTH_DATA = 'easypay/Auth/EXPIRE_AUTH_DATA'
 export const VERIFY_REQUEST = 'easypay/Auth/VERIFY_REQUEST'
 export const REQUEST_ERROR = 'easypay/Auth/REQUEST_ERROR'
@@ -97,7 +94,6 @@ function onRehydrate(state, payload) {
     ...state,
     data,
     error: null,
-    // specialKey: processSpecial(incoming.specialKey),
   } : state
 }
 

@@ -22,7 +22,8 @@ const FormParent = styled.div`
   self-align: center;
   width: 300px;
   height: 300px;
-  border: 1px solid gray;
+  border: 1px solid #ccc;
+
   @media (max-width: 999px) {
     width: 100%;
     font-size: 24px;
@@ -38,7 +39,6 @@ class Login extends PureComponent {
 
   onInputChange = (e) => {
     const { value } = e.target
-    console.log(value)
     this.setState({
       ...this.state,
       login: value,
@@ -47,7 +47,6 @@ class Login extends PureComponent {
 
   onPasswordChange = (e) => {
     const { value } = e.target
-    console.log(value)
     this.setState({
       ...this.state,
       password: value,

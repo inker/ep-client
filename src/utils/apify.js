@@ -13,6 +13,5 @@ export default (methods) => {
       data,
     })
   }
-  console.log(obj)
   return obj
 }
