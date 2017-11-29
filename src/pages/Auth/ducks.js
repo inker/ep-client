@@ -1,7 +1,7 @@
 import { REHYDRATE } from 'redux-persist'
 import { get } from 'lodash'
 
-import errors from '../../errors'
+import errorMessages from '../../errorMessages'
 
 export const LOGIN_REQUEST = 'easypay/Auth/LOGIN_REQUEST'
 export const SET_AUTH_TOKEN = 'easypay/Auth/SET_AUTH_TOKEN'
@@ -19,7 +19,7 @@ function requestError(type) {
     type: REQUEST_ERROR,
     payload: {
       type,
-      message: errors[type] || 'Something went wrong',
+      message: errorMessages[type] || 'Something went wrong',
     },
   }
 }

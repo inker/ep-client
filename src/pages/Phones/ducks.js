@@ -1,6 +1,6 @@
 import { REHYDRATE } from 'redux-persist'
 
-import errors from '../../errors'
+import errorMessages from '../../errorMessages'
 
 export const ADD_PHONE_NUMBER_REQUEST = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST'
 export const ADD_PHONE_NUMBER_REQUEST_SUCCESS = 'easypay/Phone/ADD_PHONE_NUMBER_REQUEST_SUCCESS'
@@ -18,7 +18,7 @@ function requestError(type) {
     type: REQUEST_ERROR,
     payload: {
       type,
-      message: errors[type] || 'Something went wrong',
+      message: errorMessages[type] || 'Something went wrong',
     },
   }
 }
