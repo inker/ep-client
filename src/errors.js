@@ -1,6 +1,8 @@
 export default {
+  CLIENT_ERROR: 'Client error',
   SERVER_ERROR: 'Server error',
-  
+  CONNECTION_ERROR: 'Connection error',
+
   INVALID_LOGIN: 'Invalid login',
   EMPTY_PASSWORD: 'No password supplied',
   NO_SUCH_USER: 'User does not exist',

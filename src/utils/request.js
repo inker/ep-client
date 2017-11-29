@@ -8,13 +8,27 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
+const CONNECTION_ERROR = 'CONNECTION_ERROR'
+
 export default async (url, json) => {
-  const data = {
-    method,
-    headers,
-    body: JSON.stringify(json),
+  try {
+    const data = {
+      method,
+      headers,
+      body: JSON.stringify(json),
+    }
+    const reqPromise = fetch(url, data)
+    const res = await timelimit(reqPromise, requestTimeout)
+    if (!res.ok) {
+      return {
+        error: CONNECTION_ERROR,
+      }
+    }
+    return res.json()
+  } catch (err) {
+    console.error(err)
+    return {
+      error: CONNECTION_ERROR,
+    }
   }
-  const reqPromise = fetch(url, data)
-  const res = await timelimit(reqPromise, requestTimeout)
-  return res.json()
 }
