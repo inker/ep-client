@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import { createStructuredSelector } from 'reselect'
 
 import Form from '../../components/Form'
-import ErrorMessage from '../../components/ErrorMessage'
 import Input from '../../components/Input'
 import InputWithHiddenLabel from '../../components/InputWithHiddenLabel'
 import Button from '../../components/Button'
@@ -82,7 +81,7 @@ class Phones extends PureComponent {
     const type = error && error.type
     return (
       <FormParent>
-        <Message>
+        <Message color={error && 'red'}>
           {phones.added &&
             `Phone number ${phones.phoneNumber} added`
           }
@@ -92,10 +91,8 @@ class Phones extends PureComponent {
           {phones.exists !== undefined &&
             `Phone number ${phones.phoneNumber} ${phones.exists ? 'exists' : 'does not exist'}`
           }
-        </Message>
-        <ErrorMessage>
           {type === 'NOT_FOUND' ? 'Phone number was not found' : error && error.message}
-        </ErrorMessage>
+        </Message>
         <Form onSubmit={this.onSubmit}>
           <InputWithHiddenLabel
             label="Number"

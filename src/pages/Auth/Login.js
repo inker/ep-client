@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { createStructuredSelector } from 'reselect'
 
 import Form from '../../components/Form'
-import ErrorMessage from '../../components/ErrorMessage'
+import Message from '../../components/Message'
 import Input from '../../components/Input'
 import InputWithHiddenLabel from '../../components/InputWithHiddenLabel'
 
@@ -68,9 +68,9 @@ class Login extends PureComponent {
     const errorMessage = get(props, 'auth.error.message')
     return (
       <FormParent>
-        <ErrorMessage>
+        <Message color="red">
           {errorMessage}
-        </ErrorMessage>
+        </Message>
         <Form onSubmit={this.onSubmit}>
           <InputWithHiddenLabel
             label="login"
